@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Displays the content of the file /etc/passwd, with a story
+while IFS= read -r line
+do
+	username=$(echo "$line" | cut -f 1 -d ':')
+	g_id=$(echo "$line" | cut -f 4 -d ':')
+	homedir=$(echo "$line" | cut -f 6 -d ':')
+	com_shell=$(echo "$line" | cut -f 7 -d ':')
+        uid=$(echo "$line" | cut -f 3 -d ':')
+        passw=$(echo "$line" | cut -f 2 -d ':')
+        uid_inf=$(echo "$line" | cut -f 5 -d ':')
+
+	echo -n "The user $username is part of the $g_id gang, lives in $homedir "
+	echo -n	"and rides $com_shell. $uid's place is protected by the passcode "
+	echo -n "$passw, more info about the user here: $uid_inf"
+	echo
+done < "/etc/passwd"
